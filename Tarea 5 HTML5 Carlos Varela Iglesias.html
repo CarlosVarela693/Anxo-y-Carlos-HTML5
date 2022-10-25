@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+<h1>Cosas nuevas que añade HTML5</h1>
+<h2>Drag and drop</h2>
+<img src="https://images.nexusapp.co/assets/61/98/3d/101044106.jpg" draggable="true" alt="Canelones ricos">
+<p>Aquí puedes mover unos canelones muy ricos</p>
+
+<img src="https://pa1.narvii.com/6645/da36d43d8e64df9cbdfdae88f728c830664619c3_00.gif" draggable="true" alt="Bob Esponja cariñosón">
+
+    <p>Y ahora un gif de Bob Esponja</p>
+
+    <h2>Geolocalización</h2>
+    <p>Haciendo click aquí puedes ver tus cordenadas</p>
+	<button onclick="getLocation()">Prueba a doxearte tú mismo</button>
+	<p id="demo"></p>
+	<script>
+	  var x = document.getElementById("demo");
+
+	  function getLocation() {
+		if(navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		} else {
+			x.innerHTML = "Tu ubicación no se puede mostrar";
+		}
+	  }
+
+	  function showPosition(position) {
+		x.innerHTML = "Latitud: " + position.coords.latitude + "<br>Longitud: " + position.coords.longitude;
+	  }
+	</script>
+
+
+    <h2>Web Storage</h2>
+<p>Por ejemplo podemos crear un contador dentro de una página que registre las veces que pulsamos un botón</p>
+<script>
+    function clickCounter() {
+      if (typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+          localStorage.clickcount = Number(localStorage.clickcount)+1;
+        } else {
+          localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = "Has pulsado el botón " + localStorage.clickcount + " vez/veces.";
+      } else {
+        document.getElementById("result").innerHTML = "En tu buscador no funciona este contador";
+      }
+    }
+    </script>
+        <p><button onclick="clickCounter()" type="button">Pulsa Pulsa</button></p>
+        <div id="result"></div>
+<p>Si no funciona prueba a recargar la página, además este contador no se reiniciará</p>
+
+<h2>Contadores</h2>
+<p>Incluso podemos añadir un contador en la web</p>
+<p> Por ejemplo veamos un contador de gatos acariciados </p>
+
+
+<p>Acariciar gatitos: <output id="result"></output></p>
+<button onclick="startWorker()">Acariciar gatitos</button> 
+<button onclick="stopWorker()">Parar de acariciar gatitos</button>
+
+<p><strong>Nota importante:</strong> Esto no funciona hasta versiones superiores a windows 10</p>
+
+<script>
+var w;
+
+function startWorker() {
+  if(typeof(Worker) !== "undefined") {
+    if(typeof(w) == "undefined") {
+      w = new Worker("demo_workers.js");
+    }
+    w.onmessage = function(event) {
+      document.getElementById("result").innerHTML = event.data;
+    };
+  } else {
+    document.getElementById("result").innerHTML = "Este contador no funciona en tu navegador";
+  }
+}
+
+function stopWorker() { 
+  w.terminate();
+  w = undefined;
+}
+</script>
+
+</body>
+
+<h3>Y estos serían los añadidos principales ede HTML5 aparte de los mostrados en las anteriores actividades</h3>
+
+
+
+
+
+</body>
+</html>
